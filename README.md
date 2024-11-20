@@ -2,15 +2,22 @@
 
 ![Experimental](https://img.shields.io/badge/status-experimental-blue)
 
-> todo
+> Tiny windows for big infos in Flutter
 
-todo
+A Flutter widget for viewing and navigating various document types (rich
+text, images, sound, video) with accessibility, i18n, and responsive design.
 
 ![Hero image for document\_slot\_bubblegum](doc/document_slot_bubblegum.jpeg)
 
 Highlights:
 
--   todo
+-   Supports multiple document types, including rich text, images, sound,
+    and video.
+-   JSON-compatible document schemas with extensibility for future types
+    like tables and charts.
+-   Browser-like navigation for up to 10 recently viewed documents.
+-   Accessible and internationalized UI, with RTL and multilingual support.
+-   Slot-based resizing for consistent integration across app layouts.
 
 A few examples:
 
@@ -53,4 +60,4 @@ BubblegumMessageSlot(
 
 ## Related
 
--   [todo](https://)
+-   [slotboard\_copperframe](https://github.com/flarebyte/slotboard_copperframe)

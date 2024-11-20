@@ -1,15 +1,25 @@
 model:
   project:
-    title: todo
-    description: todo
+    title: Tiny windows for big infos in Flutter
+    description: A Flutter widget for viewing and navigating various document types (rich text, images, sound, video) with accessibility, i18n, and responsive design.
     version: 0.3.0
     keywords:
-      - todo
+      - document viewer
+      - Flutter widget
+      - rich text
+      - media browser
+      - accessibility
+      - responsive design
+      - internationalization
   readme:
     highlights:
-      - todo
+      - Supports multiple document types, including rich text, images, sound, and video.
+      - JSON-compatible document schemas with extensibility for future types like tables and charts.
+      - Browser-like navigation for up to 10 recently viewed documents.
+      - Accessible and internationalized UI, with RTL and multilingual support.
+      - Slot-based resizing for consistent integration across app layouts.
     related:
-      - "[todo](https://)"
+      - "[slotboard_copperframe](https://github.com/flarebyte/slotboard_copperframe)"
     links:
       - "[Dart dependencies](DEPENDENCIES.md)"
       - "[Usage](USAGE.md)"

@@ -25,6 +25,7 @@ follow a structured JSON schema.
 ### Key Features
 
 1.  **Document Types**:
+
     -   **Rich Text**: A structured format ("elegant text") using rows with
         fragments styled with attributes (e.g., bold, italic, hyperlinks, RTL
         support). Rows can have specific styles (e.g., headers, quotes, lists).
