@@ -34,7 +34,7 @@ model:
           )
   github:
     account: flarebyte
-    name: message_slot_bubblegum
+    name: document_slot_bubblegum
   copyright:
     holder: Flarebyte.com
     startYear: 2024
