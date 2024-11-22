@@ -1,7 +1,7 @@
 import 'package:args/args.dart';
 
 /// Enumeration for text direction options
-enum TextDirection { rtl, ltr, auto }
+enum TextDirection { rtl, ltr, auto, notSupported }
 
 /// A class representing the options for a Bubblegum Elegant Fragment
 class BubblegumElegantFragmentOptions {
@@ -50,8 +50,6 @@ class BubblegumElegantFragmentOptions {
   });
 
   /// Sets the text direction for the fragment
-  ///
-  /// Throws an [ArgumentError] if an invalid direction is provided
   void setDirection(String? direction) {
     switch (direction) {
       case "RTL":
@@ -64,7 +62,7 @@ class BubblegumElegantFragmentOptions {
         this.direction = TextDirection.auto;
         break;
       default:
-        throw ArgumentError("Invalid value for direction: \$direction");
+        this.direction = TextDirection.notSupported;
     }
   }
 
@@ -134,7 +132,7 @@ class BubblegumElegantFragmentOptions {
       case "auto":
         return TextDirection.auto;
       default:
-        throw ArgumentError("Invalid value for direction: \$direction");
+        return TextDirection.notSupported;
     }
   }
 
