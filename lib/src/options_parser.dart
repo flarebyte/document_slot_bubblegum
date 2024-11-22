@@ -1,6 +1,6 @@
 import 'package:args/args.dart';
 
-class CopperframeElegantOptionsParser {
+class BubblegumElegantOptionsParser {
   static final fragmentParser = ArgParser()
     ..addOption(
       'language',
