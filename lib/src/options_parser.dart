@@ -170,3 +170,106 @@ class BubblegumElegantFragmentOptions {
       buttonCaption.hashCode ^
       buttonIcon.hashCode;
 }
+
+/// Enum representing the different types of rows available.
+/// Possible values are: h1, h2, quote, code, bullet, icon, image.
+enum RowType { h1, h2, h3, h4, quote, code, bullet, icon, image }
+
+/// A class representing the options available for a row in BubblegumElegant.
+class BubblegumElegantRowOptions {
+  /// Row type indicating the type of the row. This can be one of the following:
+  /// - h1: Header level 1
+  /// - h2: Header level 2
+  /// - quote: A blockquote
+  /// - code: A code block
+  /// - bullet: A bullet point
+  /// - icon: An icon element
+  /// - image: An image element
+  final RowType rowType;
+
+  /// The icon associated with the row, if applicable.
+  /// This is used when the `rowType` is set to `icon`.
+  final String? icon;
+
+  /// The URL of the image associated with the row, if applicable.
+  /// This is used when the `rowType` is set to `image`.
+  final String? imageUrl;
+
+  /// The label for the image, if applicable.
+  /// This can be used as an alt text or description for the image.
+  final String? imageLabel;
+
+  /// The type of bullet used for the bullet row, if applicable.
+  /// This is used when the `rowType` is set to `bullet`.
+  final String? bulletType;
+
+  /// Constructs an instance of [BubblegumElegantRowOptions].
+  ///
+  /// [rowType] is required to determine the type of row to create.
+  /// [icon], [imageUrl], [imageLabel], and [bulletType] are optional fields
+  /// that can be used based on the row type.
+  BubblegumElegantRowOptions({
+    required this.rowType,
+    this.icon,
+    this.imageUrl,
+    this.imageLabel,
+    this.bulletType,
+  });
+
+  /// Static method to create an instance of [BubblegumElegantRowOptions] from
+  /// command line arguments.
+  ///
+  /// The arguments list should contain options like `--rowType`, `--icon`,
+  /// `--imageUrl`, `--imageLabel`, and `--bulletType` to configure the row.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var options = BubblegumElegantRowOptions.fromArgs(['--rowType', 'h1', '--icon', 'example_icon']);
+  /// ```
+  static BubblegumElegantRowOptions fromArgs(List<String> args) {
+    final parser = ArgParser()
+      ..addOption('rowType',
+          allowed:
+              RowType.values.map((e) => e.toString().split('.').last).toList(),
+          mandatory: true)
+      ..addOption('icon')
+      ..addOption('imageUrl')
+      ..addOption('imageLabel')
+      ..addOption('bulletType');
+
+    final result = parser.parse(args);
+
+    return BubblegumElegantRowOptions(
+      rowType: RowType.values
+          .firstWhere((e) => e.toString().split('.').last == result['rowType']),
+      icon: result['icon'],
+      imageUrl: result['imageUrl'],
+      imageLabel: result['imageLabel'],
+      bulletType: result['bulletType'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'BubblegumElegantRowOptions{rowType: $rowType, icon: $icon, imageUrl: $imageUrl, imageLabel: $imageLabel, bulletType: $bulletType}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BubblegumElegantRowOptions &&
+          runtimeType == other.runtimeType &&
+          rowType == other.rowType &&
+          icon == other.icon &&
+          imageUrl == other.imageUrl &&
+          imageLabel == other.imageLabel &&
+          bulletType == other.bulletType;
+
+  @override
+  int get hashCode =>
+      rowType.hashCode ^
+      icon.hashCode ^
+      imageUrl.hashCode ^
+      imageLabel.hashCode ^
+      bulletType.hashCode;
+}

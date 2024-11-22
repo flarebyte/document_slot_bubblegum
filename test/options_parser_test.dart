@@ -1,4 +1,3 @@
-import 'package:document_slot_bubblegum/src/elegant_text.dart';
 import 'package:document_slot_bubblegum/src/options_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
 
