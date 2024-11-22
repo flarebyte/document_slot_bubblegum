@@ -1,3 +1,4 @@
+import 'package:args/args.dart';
 import 'package:document_slot_bubblegum/src/options_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -102,6 +103,109 @@ void main() {
         options.toString(),
         'BubblegumElegantFragmentOptions{language: en, direction: TextDirection.ltr, bold: true, italic: true, iconStart: startIcon, iconEnd: endIcon, tooltip: Sample Tooltip, id: fragment123, buttonCaption: Click Here, buttonIcon: buttonIcon}',
       );
+    });
+  });
+  group('BubblegumElegantRowOptions', () {
+    test('should create instance from arguments', () {
+      var args = [
+        '--rowType',
+        'h1',
+        '--icon',
+        'example_icon',
+        '--imageUrl',
+        'example.com/image.png',
+        '--imageLabel',
+        'Example Image',
+        '--bulletType',
+        'circle'
+      ];
+      var options = BubblegumElegantRowOptions.fromArgs(args);
+
+      expect(options.rowType, RowType.h1);
+      expect(options.icon, 'example_icon');
+      expect(options.imageUrl, 'example.com/image.png');
+      expect(options.imageLabel, 'Example Image');
+      expect(options.bulletType, 'circle');
+    });
+
+    test('should create instance with only required parameters', () {
+      var args = ['--rowType', 'code'];
+      var options = BubblegumElegantRowOptions.fromArgs(args);
+
+      expect(options.rowType, RowType.code);
+      expect(options.icon, isNull);
+      expect(options.imageUrl, isNull);
+      expect(options.imageLabel, isNull);
+      expect(options.bulletType, isNull);
+    });
+
+    test('should compare two identical instances as equal', () {
+      var options1 = BubblegumElegantRowOptions(
+          rowType: RowType.quote, imageLabel: 'Quote Image');
+      var options2 = BubblegumElegantRowOptions(
+          rowType: RowType.quote, imageLabel: 'Quote Image');
+
+      expect(options1, equals(options2));
+    });
+
+    test('should correctly print string representation', () {
+      var options = BubblegumElegantRowOptions(
+          rowType: RowType.bullet, bulletType: 'square');
+      expect(options.toString(),
+          'BubblegumElegantRowOptions{rowType: RowType.bullet, icon: null, imageUrl: null, imageLabel: null, bulletType: square}');
+    });
+
+    test('should handle unknown rowType in arguments', () {
+      var args = ['--rowType', 'unknown'];
+      expect(() => BubblegumElegantRowOptions.fromArgs(args),
+          throwsA(isA<ArgParserException>()));
+    });
+  });
+
+  group('BubblegumElegantTextOptions', () {
+    test('should create instance from arguments', () {
+      var args = [
+        '--title',
+        'My Title',
+        '--description',
+        'This is a description',
+        '--copyright',
+        '2024 MyCompany',
+        '--license',
+        'MIT'
+      ];
+      var textOptions = BubblegumElegantTextOptions.fromArgs(args);
+
+      expect(textOptions.title, 'My Title');
+      expect(textOptions.description, 'This is a description');
+      expect(textOptions.copyright, '2024 MyCompany');
+      expect(textOptions.license, 'MIT');
+    });
+
+    test('should create instance with only required parameters', () {
+      var args = ['--title', 'Essential Title'];
+      var textOptions = BubblegumElegantTextOptions.fromArgs(args);
+
+      expect(textOptions.title, 'Essential Title');
+      expect(textOptions.description, isNull);
+      expect(textOptions.copyright, isNull);
+      expect(textOptions.license, isNull);
+    });
+
+    test('should compare two identical instances as equal', () {
+      var options1 = BubblegumElegantTextOptions(
+          title: 'Title', description: 'Description');
+      var options2 = BubblegumElegantTextOptions(
+          title: 'Title', description: 'Description');
+
+      expect(options1, equals(options2));
+    });
+
+    test('should correctly print string representation', () {
+      var textOptions =
+          BubblegumElegantTextOptions(title: 'My Title', license: 'GPL');
+      expect(textOptions.toString(),
+          'BubblegumElegantTextOptions{title: My Title, description: null, copyright: null, license: GPL}');
     });
   });
 }

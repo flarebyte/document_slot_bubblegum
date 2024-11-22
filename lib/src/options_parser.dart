@@ -273,3 +273,78 @@ class BubblegumElegantRowOptions {
       imageLabel.hashCode ^
       bulletType.hashCode;
 }
+
+/// A class representing the options available for text in BubblegumElegant.
+class BubblegumElegantTextOptions {
+  /// The title associated with the text.
+  final String title;
+
+  /// A description of the text content.
+  final String? description;
+
+  /// The copyright information for the text.
+  final String? copyright;
+
+  /// The license associated with the text.
+  final String? license;
+
+  /// Constructs an instance of [BubblegumElegantTextOptions].
+  ///
+  /// [title] is required to identify the text content.
+  /// [description], [copyright], and [license] are optional fields that can provide additional information.
+  BubblegumElegantTextOptions({
+    required this.title,
+    this.description,
+    this.copyright,
+    this.license,
+  });
+
+  /// Static method to create an instance of [BubblegumElegantTextOptions] from
+  /// command line arguments.
+  ///
+  /// The arguments list should contain options like `--title`, `--description`,
+  /// `--copyright`, and `--license` to configure the text.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// var textOptions = BubblegumElegantTextOptions.fromArgs(['--title', 'My Title', '--description', 'This is a description']);
+  /// ```
+  static BubblegumElegantTextOptions fromArgs(List<String> args) {
+    final parser = ArgParser()
+      ..addOption('title', mandatory: true)
+      ..addOption('description')
+      ..addOption('copyright')
+      ..addOption('license');
+
+    final result = parser.parse(args);
+
+    return BubblegumElegantTextOptions(
+      title: result['title'],
+      description: result['description'],
+      copyright: result['copyright'],
+      license: result['license'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'BubblegumElegantTextOptions{title: $title, description: $description, copyright: $copyright, license: $license}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BubblegumElegantTextOptions &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          description == other.description &&
+          copyright == other.copyright &&
+          license == other.license;
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      description.hashCode ^
+      copyright.hashCode ^
+      license.hashCode;
+}
