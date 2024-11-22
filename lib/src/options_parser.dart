@@ -138,6 +138,35 @@ class BubblegumElegantFragmentOptions {
 
   @override
   String toString() {
-    return 'BubblegumElegantFragmentOptions{language: \$language, direction: \$direction, bold: \$bold, italic: \$italic, iconStart: \$iconStart, iconEnd: \$iconEnd, tooltip: \$tooltip, id: \$id, buttonCaption: \$buttonCaption, buttonIcon: \$buttonIcon}';
+    return 'BubblegumElegantFragmentOptions{language: $language, direction: $direction, bold: $bold, italic: $italic, iconStart: $iconStart, iconEnd: $iconEnd, tooltip: $tooltip, id: $id, buttonCaption: $buttonCaption, buttonIcon: $buttonIcon}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BubblegumElegantFragmentOptions &&
+          runtimeType == other.runtimeType &&
+          language == other.language &&
+          direction == other.direction &&
+          bold == other.bold &&
+          italic == other.italic &&
+          iconStart == other.iconStart &&
+          iconEnd == other.iconEnd &&
+          tooltip == other.tooltip &&
+          id == other.id &&
+          buttonCaption == other.buttonCaption &&
+          buttonIcon == other.buttonIcon;
+
+  @override
+  int get hashCode =>
+      language.hashCode ^
+      direction.hashCode ^
+      bold.hashCode ^
+      italic.hashCode ^
+      iconStart.hashCode ^
+      iconEnd.hashCode ^
+      tooltip.hashCode ^
+      id.hashCode ^
+      buttonCaption.hashCode ^
+      buttonIcon.hashCode;
 }
