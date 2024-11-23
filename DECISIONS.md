@@ -104,3 +104,115 @@ follow a structured JSON schema.
     minimal disruption to the existing implementation.
 -   Design should support easy updates for localization, ensuring smooth
     integration of additional languages and RTL enhancements.
+
+## Stack concept
+
+### Problem Description
+
+Develop a documentation panel in Flutter using Material 3 that mimics a
+simplified browser with support for managing document stacks. The panel will
+allow users to manage multiple stacks of documents, with limits on the number
+of stacks and documents per stack. The UI should provide an intuitive way to
+navigate between stacks and within documents in a stack while ensuring
+logical organization of the stacks and documents based on user interactions.
+
+### Features and Requirements
+
+1.  **Document Stack Management**
+
+    -   Users can open and manage up to **10 stacks** (maximum limit).
+    -   Each stack contains up to **10 documents**, with the first document
+        fixed as the **main document** at the top of the stack.
+    -   A new stack is always added at position **1** (index 0), shifting other
+        stacks down. If the limit is exceeded, the **oldest stack** is removed.
+    -   A document added to a stack is inserted below the main document and
+        cannot replace it.
+
+2.  **Navigation and UI Components**
+
+    -   The UI provides numbered or lettered **buttons for stack selection**.
+    -   Each button displays a tooltip with the **stack's title**.
+    -   Within a stack, **breadcrumbs** or a similar mechanism are used to
+        access all open documents in the stack.
+    -   Clicking a breadcrumb brings the user to the corresponding document in
+        the stack.
+
+3.  **Stack Operations**
+
+    -   Users can delete a stack, which removes it from the panel and
+        reorganizes the remaining stacks accordingly.
+    -   Deleting a document in a stack does not affect the main document's
+        position. Remaining documents are reorganized.
+    -   Users can clear all stacks with a single action.
+
+4.  **Duplicate Stacks and Documents**
+
+    -   A stack cannot duplicate if reopened as a **new stack**.
+    -   A document may appear in multiple stacks independently.
+
+5.  **Document Types and Indicators**
+    -   Buttons for directly accessing documents reflect their **type** (e.g.,
+        icon for text, image, etc.).
+
+### Use Cases
+
+1.  **Opening Stacks and Documents**
+
+    -   User opens a stack (e.g., "Project A"). It appears at index 0, shifting
+        others.
+    -   User adds a document to the stack. It is placed below the main
+        document.
+
+2.  **Reorganizing Stacks**
+
+    -   User adds a new stack, exceeding the 10-stack limit. The oldest stack
+        is discarded.
+    -   User reopens an existing stack as new. It is moved to the top.
+
+3.  **Document Deletion and Navigation**
+
+    -   User deletes a document, and the stack reorganizes while preserving the
+        main document.
+    -   User deletes a stack, and other stacks shift positions.
+
+4.  **Clear All Stacks**
+
+    -   User clears all stacks, resetting the panel.
+
+5.  **Breadcrumb Navigation**
+    -   User navigates through a stack using breadcrumbs to quickly switch
+        between documents.
+
+### Edge Cases
+
+1.  Adding a document to a stack already at its limit (10 documents).
+
+    -   Oldest non-main document is removed.
+
+2.  Reopening an existing stack as new.
+
+    -   The same stack appears twice, once at index 0 and its original
+        position.
+
+3.  Adding a stack or document when at maximum capacity.
+
+    -   The oldest stack or document is discarded appropriately.
+
+4.  Clearing all stacks when none exist.
+
+    -   No action or a user notification indicating no stacks to clear.
+
+5.  Accessing a document that exists in multiple stacks.
+    -   Ensure proper navigation in each stack context.
+
+### Limitations
+
+-   **No Network Browsing**: The panel is limited to document stacks and
+    does not allow for browsing the web.
+-   **No Deep Merging**: Reopening a stack as new does not merge it with
+    the existing instance.
+-   **No Nested Stacks**: Stacks cannot contain other stacks.
+-   **No Complex Document Types**: Document handling is limited to basic
+    type representation (e.g., text, image).
+-   **No Persistent State**: Changes to stacks and documents are not
+    retained across sessions unless explicitly implemented.
