@@ -216,3 +216,85 @@ logical organization of the stacks and documents based on user interactions.
     type representation (e.g., text, image).
 -   **No Persistent State**: Changes to stacks and documents are not
     retained across sessions unless explicitly implemented.
+
+## Sections
+
+### Problem Description
+
+In a Flutter application using Material 3, a document structure is defined by
+**sections**, each of which contains a **title** and two optional **content
+areas**: primary and secondary. Each content area consists of **rows**, which
+are made up of **text fragments**. The desired functionality includes:
+
+1.  **Accordion-style sections**: Each section should be collapsible and
+    expandable.
+2.  **Primary and Secondary Columns**: If a section has both a primary and
+    secondary content area, they should be displayed side-by-side as columns.
+3.  **Column Metadata**: Each column (primary or secondary) can have a title,
+    description, and icon for additional context.
+4.  **Styling Options**: Customization of sections, primary content, and
+    secondary content for:
+    -   Background color
+    -   Outline style
+    -   Other visual elements
+
+### Use Cases
+
+1.  **Basic Document Structure**
+
+    -   A document with three sections, each having only a primary content
+        area.
+    -   Example: Section 1 has a list of steps; Section 2 lists items.
+
+2.  **Dual Column Display**
+
+    -   A section containing a "Pros" (primary) and "Cons" (secondary) list
+        displayed side by side.
+    -   Example:
+        -   Primary: "Pros" with a green background and checkmark icon.
+        -   Secondary: "Cons" with a red background and caution icon.
+
+3.  **Accordion Interaction**
+
+    -   Sections are collapsed by default and expand individually when clicked.
+    -   Example: Clicking "Details" opens the section while collapsing others.
+
+4.  **Custom Styling**
+
+    -   A section is styled with a unique background and border.
+    -   Example: Section 3 has a dashed outline and light-gray background for
+        emphasis.
+
+5.  **Content Description**
+
+    -   A column has a title, a short description, and an associated icon for
+        clarity.
+    -   Example: "Pros" column title: "Advantages," description: "Key benefits
+        of this approach," icon: checkmark.
+
+6.  **Empty Content Areas**
+    -   A section with only primary content, leaving the secondary column
+        empty.
+    -   Example: Section 4 has only a list of "Guidelines" in the primary
+        column.
+
+### Limits and Exclusions
+
+2.  **No Nested Accordions**
+
+    -   Sections cannot contain other sections as nested accordions.
+
+3.  **No External Data Fetching**
+
+    -   The widget does not handle data fetching or persistence; data must be
+        passed into the widget.
+
+4.  **No Dynamic Animation**
+
+    -   Animations for expanding/collapsing are limited to basic Material 3
+        defaults without complex customization.
+
+5.  **No Custom Layouts**
+    -   The layout strictly adheres to two columns for primary and secondary
+        content or a single column when secondary is absent. Additional layouts
+        are not supported.
