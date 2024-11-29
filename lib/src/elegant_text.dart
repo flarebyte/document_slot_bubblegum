@@ -64,22 +64,22 @@ class CopperframeElegantRow {
 }
 
 /// Represents a text structure containing multiple rows and associated options.
-class CopperframeElegantText {
+class CopperframeElegantSection {
   /// Options associated with the text. Ex: title, description, copyright, license, ...dc core metadata,
   final List<String> options;
 
   /// List of rows contained in the text.
   final List<CopperframeElegantRow> rows;
 
-  /// Creates an immutable instance of [CopperframeElegantText].
-  const CopperframeElegantText({
+  /// Creates an immutable instance of [CopperframeElegantSection].
+  const CopperframeElegantSection({
     required this.options,
     required this.rows,
   });
 
-  /// Creates a [CopperframeElegantText] from a JSON object.
-  factory CopperframeElegantText.fromJson(Map<String, dynamic> json) {
-    return CopperframeElegantText(
+  /// Creates a [CopperframeElegantSection] from a JSON object.
+  factory CopperframeElegantSection.fromJson(Map<String, dynamic> json) {
+    return CopperframeElegantSection(
       options: List<String>.from(json['options']),
       rows: (json['rows'] as List)
           .map((row) =>
@@ -88,7 +88,7 @@ class CopperframeElegantText {
     );
   }
 
-  /// Converts the [CopperframeElegantText] to a JSON object.
+  /// Converts the [CopperframeElegantSection] to a JSON object.
   Map<String, dynamic> toJson() {
     return {
       'options': options,

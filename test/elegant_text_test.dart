@@ -98,7 +98,7 @@ void main() {
         ],
       };
 
-      final text = CopperframeElegantText.fromJson(json);
+      final text = CopperframeElegantSection.fromJson(json);
 
       expect(text.options, ['title', 'description']);
       expect(text.rows.length, 1);
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('toJson outputs correct JSON', () {
-      const text = CopperframeElegantText(
+      const text = CopperframeElegantSection(
         options: ['title', 'description'],
         rows: [
           CopperframeElegantRow(
