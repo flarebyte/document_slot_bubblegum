@@ -298,3 +298,93 @@ are made up of **text fragments**. The desired functionality includes:
     -   The layout strictly adheres to two columns for primary and secondary
         content or a single column when secondary is absent. Additional layouts
         are not supported.
+
+## Attached documents
+
+In a Dart/Flutter application, you need a system to represent and manage
+content relationships where a document (owner) can attach another document
+(child) or a list of documents. Each child document is identified by a
+locator consisting of a type and a unique ID, potentially secured with a
+hashing mechanism for validity. The system must support complex
+relationships, metadata for the relationships, and provide efficient
+rendering solutions for attached documents while maintaining reference
+integrity during operations like deletions.
+
+### Use Cases
+
+1.  **Simple Reference Management**
+
+    -   Attach a child document to an owner document by locator (e.g., a recipe
+        attaches a nutritional guide).
+    -   Detach a document and ensure the integrity of the remaining references.
+
+2.  **Aggregation vs Composition**
+
+    -   Aggregate documents used across multiple owners (e.g., terms and
+        conditions referenced by various policies).
+    -   Compose documents specific to a single owner (e.g., a project’s task
+        list).
+
+3.  **Complex Relationship Attributes**
+
+    -   Represent relationships with metadata (e.g., 200g butter in a recipe,
+        where "200g" is attached to the relationship).
+    -   Support different types of verbs for relationships (e.g., "contains,"
+        "related to").
+
+4.  **Rendering**
+
+    -   Render attached documents using the same format as the owner when
+        feasible.
+    -   Support bespoke rendering mechanisms for complex documents.
+
+5.  **Preview Management**
+
+    -   Provide simple previews (e.g., labels, short labels for buttons).
+    -   Offer rich previews (e.g., image or media previews).
+    -   Support asynchronous server-side generation of image previews in
+        various formats.
+
+6.  **Efficiency**
+
+    -   Balance UX and performance by avoiding frequent re-rendering (e.g., not
+        updating previews for every character typed).
+    -   Ensure that the application remains performant even when handling
+        numerous attachments.
+
+7.  **Deletion and Integrity**
+
+    -   Handle deletion of owner documents while ensuring reference integrity
+        for shared child documents.
+    -   Provide mechanisms to clean up unused references or orphaned child
+        documents.
+
+8.  **Extensibility**
+    -   Accommodate business-specific needs for previews (e.g., deciding
+        preview types based on document type or user role).
+    -   Scale the system for diverse document types and relationships.
+
+### Edge Cases
+
+-   Attaching a non-existent document should fail gracefully.
+-   A document referenced by multiple owners should not be deleted unless
+    all references are removed.
+-   Complex relationships where metadata changes (e.g., quantity in a
+    recipe) should not affect the child document’s core content.
+-   Simultaneous updates to a document by multiple owners should not result
+    in inconsistent state.
+-   Previews that fail to generate asynchronously (e.g., server issues)
+    should fall back to default states.
+
+### Limits and Non-Goals
+
+-   **Browser-Based Prompts**: Representing attached content as
+    browser-based prompts is out of scope due to current technical
+    constraints.
+-   **Rendering Overhead**: The system will not support real-time
+    re-rendering of attached documents on every user input.
+-   **Preview Storage**: Long-term storage or management of generated
+    previews on the client side is not a focus; this should be
+    server-driven.
+-   **Complex Query Engines**: Building a query engine for traversing
+    complex document relationships is not part of this scope.
