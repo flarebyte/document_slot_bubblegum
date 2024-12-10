@@ -388,3 +388,80 @@ integrity during operations like deletions.
     server-driven.
 -   **Complex Query Engines**: Building a query engine for traversing
     complex document relationships is not part of this scope.
+
+## Content Filtering by Topic
+
+Designing a static document system that reacts to query parameters for
+dynamic content display and styling introduces complexity, particularly when
+integrating variable handling. However, a lightweight approach could involve
+filtering or highlighting specific content within the document based on URL
+query parameters. This would enable dynamic user customization without
+significantly altering the static structure of the document.
+
+The problem involves enabling functionality to:
+
+1.  Filter the displayed content to show only selected topics.
+2.  Highlight specific topics using a primary or secondary color scheme
+    defined by the query parameters.
+
+### Use Cases
+
+1.  **Content Filtering by Topic**:
+    A URL like `document.html?use-primary=pros,advantages` would display only content tagged as "pros" or "advantages" in the document, hiding all other sections.
+
+2.  **Highlighting Topics**:\
+    A query parameter like `use-secondary=cons` would apply a secondary color style to all content tagged as "cons", making it visually distinct.
+
+3.  **Combining Filters and Highlights**:\
+    A URL with both parameters, e.g., `document.html?use-primary=pros,advantages&use-secondary=cons`, would:
+
+    -   Display only "pros", "advantages", and "cons".
+    -   Highlight "pros" and "advantages" with the primary color and "cons"
+        with the secondary color.
+
+4.  **Default View**:\
+    If no query parameters are provided, the full document is displayed without any additional highlighting.
+
+5.  **Partial Match Filtering**:\
+    If a user specifies `use-primary=adv`, topics tagged with "advantages" and other tags partially matching "adv" would be included.
+
+6.  **Fallback for Invalid Parameters**:\
+    If query parameters reference non-existent tags, the document could default to showing all content or provide a "no results" message.
+
+### Edge Cases
+
+-   Query parameters reference topics that do not exist in the document,
+    e.g., `use-primary=nonexistent`.
+-   Overlapping tags between `use-primary` and `use-secondary`, e.g.,
+    `use-primary=pros` and `use-secondary=pros`.
+-   Invalid or malformed query parameters, e.g., `use-primary=`,
+    `use-secondary==`.
+-   No valid tags found after filtering; ensure a fallback mechanism to
+    handle empty display states.
+
+### Limitations and Exclusions
+
+1.  **No Full Variable System**:
+    This approach should not support extensive variable handling or complex logic, as it aims to remain lightweight and static.
+
+2.  **No Advanced User Interface Adjustments**:\
+    The solution will not include a graphical interface for modifying the query parameters or real-time document updates without refreshing the page.
+
+3.  **No Deep Content Restructuring**:\
+    The system will not rearrange or rewrite content dynamically. It only filters or highlights based on pre-tagged sections.
+
+4.  **No SEO Optimization for Dynamic Views**:\
+    The system will not consider dynamic parameter-based views for SEO improvements, focusing solely on user customization.
+
+### Examples
+
+-   **Full URL Example**:
+    `document.html?use-primary=pros,advantages&use-secondary=cons`
+
+    -   Displays only topics tagged "pros", "advantages", and "cons".
+    -   "Pros" and "advantages" appear with primary color styling, while "cons"
+        uses secondary color styling.
+
+-   **Invalid Query**:
+    `document.html?use-primary=unknown`
+    -   Displays a fallback view showing all content or a "no results" message.
