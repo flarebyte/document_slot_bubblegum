@@ -465,3 +465,128 @@ The problem involves enabling functionality to:
 -   **Invalid Query**:
     `document.html?use-primary=unknown`
     -   Displays a fallback view showing all content or a "no results" message.
+
+## Stateful document
+
+### Problem Description
+
+Develop a stateful document in Dart Flutter for navigating an interactive
+story where users can make decisions to progress through sections or
+chapters. The document should support a directed acyclic graph (DAG)
+structure, where nodes represent story sections (rich text and images) and
+edges define transitions to subsequent sections. Transitions are conditional,
+based on the current state or previous decisions, but the complexity of
+condition matching must remain simple to prevent logic errors. Each node can
+trigger background actions, such as modifying the state or saving progress.
+
+### Use Cases
+
+1.  **Basic Navigation**
+
+    -   A user reads a section of the story and chooses from predefined options
+        to proceed to the next section.
+    -   Each section includes formatted text and embedded images.
+
+2.  **Conditional Transitions**
+
+    -   A transition is only available if the user has made specific prior
+        choices (e.g., collected an item or achieved a certain score).
+    -   Example: "You need a key to open this door" blocks the transition until
+        the user collects a "key" in the state.
+
+3.  **State Modifications**
+
+    -   Increment or decrement counters as a result of decisions.
+    -   Reset counters based on specific story conditions.
+    -   Update the current node in the state after a transition.
+
+4.  **Background Actions**
+
+    -   Save the user's progress (e.g., current node and state).
+    -   Trigger external processes (e.g., network calls, animations) upon
+        reaching certain nodes.
+
+5.  **Enum-Based States**
+
+    -   Track user attributes like "alignment" (e.g., good, neutral, evil) or
+        "location" using enumerations.
+    -   Restrict transitions based on a specific enum value.
+
+6.  **History Tracking**
+
+    -   Maintain a history of visited nodes and decisions for backtracking or
+        debugging.
+
+7.  **Error Prevention**
+    -   Prevent invalid transitions or circular logic by ensuring the DAG
+        structure remains valid.
+
+### Edge Cases
+
+1.  **Invalid Transitions**
+
+    -   A user attempts to select a transition that doesn't match the current
+        state.
+
+2.  **Unreachable Nodes**
+
+    -   Nodes with no incoming edges should be flagged during development to
+        avoid dead ends.
+
+3.  **Complex Conditions**
+
+    -   Transition logic becomes overly complicated, making it difficult to
+        debug or predict behavior.
+    -   Example: Nested conditions like `(state.counter > 5 AND enum == "Good")
+        OR (state.counter < 3 AND enum == "Evil")`.
+
+4.  **State Overwrites**
+
+    -   Concurrent background actions inadvertently overwrite state changes.
+
+5.  **History Overload**
+
+    -   Excessive history tracking causes performance issues in large stories.
+
+6.  **User Backtracking**
+
+    -   A user tries to revisit a previous node, and the system must decide how
+        state and history are affected.
+
+7.  **Large DAG Structure**
+    -   A complex story with hundreds of nodes causes UI lag or memory issues.
+
+### Limits and Exclusions
+
+-   The solution should **not** allow circular dependencies in the DAG
+    structure.
+-   Do not implement highly complex condition matching for transitions
+    (e.g., no deeply nested logical conditions).
+-   The state should remain lightweight, focusing only on:
+    -   Integer counters (increment, decrement, reset).
+    -   Current node ID.
+    -   Enum values representing simple attributes.
+-   Avoid implementing deep undo/redo functionality beyond maintaining a
+    straightforward visit history.
+-   This solution is not intended to create or edit the DAG structure
+    dynamically within the app.
+
+### Example
+
+1.  **Story Node**:
+
+    -   Content: "You find yourself in a dark forest. There are two paths
+        ahead."
+    -   Transitions:
+        -   "Take the left path" → Requires `state.counter >= 1`.
+        -   "Take the right path" → Requires `enum.alignment == "Neutral"`.
+
+2.  **State Updates**:
+
+    -   Increment counter when a specific path is taken.
+    -   Change alignment enum if a choice aligns with specific moral
+        attributes.
+
+3.  **Background Action**:
+    -   Save `currentNode` and `state` to persistent storage after each
+        decision.
