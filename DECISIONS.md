@@ -4,8 +4,8 @@ An [architecture
 decision](https://cloud.google.com/architecture/architecture-decision-records)
 is a software design choice that evaluates:
 
--   a functional requirement (features).
--   a non-functional requirement (technologies, methodologies, libraries).
+- a functional requirement (features).
+- a non-functional requirement (technologies, methodologies, libraries).
 
 The purpose is to understand the reasons behind the current architecture, so
 they can be carried-on or re-visited in the future.
@@ -26,46 +26,46 @@ follow a structured JSON schema.
 
 1.  **Document Types**:
 
-    -   **Rich Text**: A structured format ("elegant text") using rows with
-        fragments styled with attributes (e.g., bold, italic, hyperlinks, RTL
-        support). Rows can have specific styles (e.g., headers, quotes, lists).
-    -   **Media Documents**: Images, sound, and video with associated metadata
-        (e.g., copyright, accessibility information).
-    -   **Extensible Types**: Future additions like tables or charts.
+    - **Rich Text**: A structured format ("elegant text") using rows with
+      fragments styled with attributes (e.g., bold, italic, hyperlinks, RTL
+      support). Rows can have specific styles (e.g., headers, quotes, lists).
+    - **Media Documents**: Images, sound, and video with associated metadata
+      (e.g., copyright, accessibility information).
+    - **Extensible Types**: Future additions like tables or charts.
 
 2.  **Navigation**:
 
-    -   Browser-like functionality to navigate back and forth between recently
-        viewed documents (up to 10).
-    -   Clear indication of the oldest and most recent documents.
-    -   Avoid tabs to prevent UI clutter.
+    - Browser-like functionality to navigate back and forth between recently
+      viewed documents (up to 10).
+    - Clear indication of the oldest and most recent documents.
+    - Avoid tabs to prevent UI clutter.
 
 3.  **Serialization**:
 
-    -   Documents are JSON-compatible, with a common metadata schema (e.g.,
-        title) and type-specific schemas.
+    - Documents are JSON-compatible, with a common metadata schema (e.g.,
+      title) and type-specific schemas.
 
 4.  **UI Requirements**:
-    -   Accessible and internationalized, with support for RTL and popular
-        languages.
-    -   Responsive design using the slot concept from
-        [slotboard\_copperframe](https://github.com/flarebyte/slotboard_copperframe).
+    - Accessible and internationalized, with support for RTL and popular
+      languages.
+    - Responsive design using the slot concept from
+      [slotboard_copperframe](https://github.com/flarebyte/slotboard_copperframe).
 
 ### Use Cases
 
 1.  **Viewing Rich Text Documents**: Display a page with styled rows and
     fragments. For example:
 
-    -   A document with a title and text formatted with bold, hyperlinks, and a
-        blockquote.
-    -   A page displaying a bulleted list in RTL with highlighted words.
+    - A document with a title and text formatted with bold, hyperlinks, and a
+      blockquote.
+    - A page displaying a bulleted list in RTL with highlighted words.
 
 2.  **Viewing Media Documents**:
 
-    -   A page displaying an image with captions, copyright info, and an
-        alt-text for accessibility.
-    -   A page playing an audio file with associated metadata (e.g.,
-        description, copyright).
+    - A page displaying an image with captions, copyright info, and an
+      alt-text for accessibility.
+    - A page playing an audio file with associated metadata (e.g.,
+      description, copyright).
 
 3.  **Hyperlink Navigation**: Clicking a hyperlink in a document to open
     another document.
@@ -100,10 +100,10 @@ follow a structured JSON schema.
 
 ### Future-Proofing
 
--   Schema should allow extensibility for new document types, ensuring
-    minimal disruption to the existing implementation.
--   Design should support easy updates for localization, ensuring smooth
-    integration of additional languages and RTL enhancements.
+- Schema should allow extensibility for new document types, ensuring
+  minimal disruption to the existing implementation.
+- Design should support easy updates for localization, ensuring smooth
+  integration of additional languages and RTL enhancements.
 
 ## Stack concept
 
@@ -120,102 +120,102 @@ logical organization of the stacks and documents based on user interactions.
 
 1.  **Document Stack Management**
 
-    -   Users can open and manage up to **10 stacks** (maximum limit).
-    -   Each stack contains up to **10 documents**, with the first document
-        fixed as the **main document** at the top of the stack.
-    -   A new stack is always added at position **1** (index 0), shifting other
-        stacks down. If the limit is exceeded, the **oldest stack** is removed.
-    -   A document added to a stack is inserted below the main document and
-        cannot replace it.
+    - Users can open and manage up to **10 stacks** (maximum limit).
+    - Each stack contains up to **10 documents**, with the first document
+      fixed as the **main document** at the top of the stack.
+    - A new stack is always added at position **1** (index 0), shifting other
+      stacks down. If the limit is exceeded, the **oldest stack** is removed.
+    - A document added to a stack is inserted below the main document and
+      cannot replace it.
 
 2.  **Navigation and UI Components**
 
-    -   The UI provides numbered or lettered **buttons for stack selection**.
-    -   Each button displays a tooltip with the **stack's title**.
-    -   Within a stack, **breadcrumbs** or a similar mechanism are used to
-        access all open documents in the stack.
-    -   Clicking a breadcrumb brings the user to the corresponding document in
-        the stack.
+    - The UI provides numbered or lettered **buttons for stack selection**.
+    - Each button displays a tooltip with the **stack's title**.
+    - Within a stack, **breadcrumbs** or a similar mechanism are used to
+      access all open documents in the stack.
+    - Clicking a breadcrumb brings the user to the corresponding document in
+      the stack.
 
 3.  **Stack Operations**
 
-    -   Users can delete a stack, which removes it from the panel and
-        reorganizes the remaining stacks accordingly.
-    -   Deleting a document in a stack does not affect the main document's
-        position. Remaining documents are reorganized.
-    -   Users can clear all stacks with a single action.
+    - Users can delete a stack, which removes it from the panel and
+      reorganizes the remaining stacks accordingly.
+    - Deleting a document in a stack does not affect the main document's
+      position. Remaining documents are reorganized.
+    - Users can clear all stacks with a single action.
 
 4.  **Duplicate Stacks and Documents**
 
-    -   A stack cannot duplicate if reopened as a **new stack**.
-    -   A document may appear in multiple stacks independently.
+    - A stack cannot duplicate if reopened as a **new stack**.
+    - A document may appear in multiple stacks independently.
 
 5.  **Document Types and Indicators**
-    -   Buttons for directly accessing documents reflect their **type** (e.g.,
-        icon for text, image, etc.).
+    - Buttons for directly accessing documents reflect their **type** (e.g.,
+      icon for text, image, etc.).
 
 ### Use Cases
 
 1.  **Opening Stacks and Documents**
 
-    -   User opens a stack (e.g., "Project A"). It appears at index 0, shifting
-        others.
-    -   User adds a document to the stack. It is placed below the main
-        document.
+    - User opens a stack (e.g., "Project A"). It appears at index 0, shifting
+      others.
+    - User adds a document to the stack. It is placed below the main
+      document.
 
 2.  **Reorganizing Stacks**
 
-    -   User adds a new stack, exceeding the 10-stack limit. The oldest stack
-        is discarded.
-    -   User reopens an existing stack as new. It is moved to the top.
+    - User adds a new stack, exceeding the 10-stack limit. The oldest stack
+      is discarded.
+    - User reopens an existing stack as new. It is moved to the top.
 
 3.  **Document Deletion and Navigation**
 
-    -   User deletes a document, and the stack reorganizes while preserving the
-        main document.
-    -   User deletes a stack, and other stacks shift positions.
+    - User deletes a document, and the stack reorganizes while preserving the
+      main document.
+    - User deletes a stack, and other stacks shift positions.
 
 4.  **Clear All Stacks**
 
-    -   User clears all stacks, resetting the panel.
+    - User clears all stacks, resetting the panel.
 
 5.  **Breadcrumb Navigation**
-    -   User navigates through a stack using breadcrumbs to quickly switch
-        between documents.
+    - User navigates through a stack using breadcrumbs to quickly switch
+      between documents.
 
 ### Edge Cases
 
 1.  Adding a document to a stack already at its limit (10 documents).
 
-    -   Oldest non-main document is removed.
+    - Oldest non-main document is removed.
 
 2.  Reopening an existing stack as new.
 
-    -   The same stack appears twice, once at index 0 and its original
-        position.
+    - The same stack appears twice, once at index 0 and its original
+      position.
 
 3.  Adding a stack or document when at maximum capacity.
 
-    -   The oldest stack or document is discarded appropriately.
+    - The oldest stack or document is discarded appropriately.
 
 4.  Clearing all stacks when none exist.
 
-    -   No action or a user notification indicating no stacks to clear.
+    - No action or a user notification indicating no stacks to clear.
 
 5.  Accessing a document that exists in multiple stacks.
-    -   Ensure proper navigation in each stack context.
+    - Ensure proper navigation in each stack context.
 
 ### Limitations
 
--   **No Network Browsing**: The panel is limited to document stacks and
-    does not allow for browsing the web.
--   **No Deep Merging**: Reopening a stack as new does not merge it with
-    the existing instance.
--   **No Nested Stacks**: Stacks cannot contain other stacks.
--   **No Complex Document Types**: Document handling is limited to basic
-    type representation (e.g., text, image).
--   **No Persistent State**: Changes to stacks and documents are not
-    retained across sessions unless explicitly implemented.
+- **No Network Browsing**: The panel is limited to document stacks and
+  does not allow for browsing the web.
+- **No Deep Merging**: Reopening a stack as new does not merge it with
+  the existing instance.
+- **No Nested Stacks**: Stacks cannot contain other stacks.
+- **No Complex Document Types**: Document handling is limited to basic
+  type representation (e.g., text, image).
+- **No Persistent State**: Changes to stacks and documents are not
+  retained across sessions unless explicitly implemented.
 
 ## Sections
 
@@ -234,70 +234,70 @@ are made up of **text fragments**. The desired functionality includes:
     description, and icon for additional context.
 4.  **Styling Options**: Customization of sections, primary content, and
     secondary content for:
-    -   Background color
-    -   Outline style
-    -   Other visual elements
+    - Background color
+    - Outline style
+    - Other visual elements
 
 ### Use Cases
 
 1.  **Basic Document Structure**
 
-    -   A document with three sections, each having only a primary content
-        area.
-    -   Example: Section 1 has a list of steps; Section 2 lists items.
+    - A document with three sections, each having only a primary content
+      area.
+    - Example: Section 1 has a list of steps; Section 2 lists items.
 
 2.  **Dual Column Display**
 
-    -   A section containing a "Pros" (primary) and "Cons" (secondary) list
-        displayed side by side.
-    -   Example:
-        -   Primary: "Pros" with a green background and checkmark icon.
-        -   Secondary: "Cons" with a red background and caution icon.
+    - A section containing a "Pros" (primary) and "Cons" (secondary) list
+      displayed side by side.
+    - Example:
+      - Primary: "Pros" with a green background and checkmark icon.
+      - Secondary: "Cons" with a red background and caution icon.
 
 3.  **Accordion Interaction**
 
-    -   Sections are collapsed by default and expand individually when clicked.
-    -   Example: Clicking "Details" opens the section while collapsing others.
+    - Sections are collapsed by default and expand individually when clicked.
+    - Example: Clicking "Details" opens the section while collapsing others.
 
 4.  **Custom Styling**
 
-    -   A section is styled with a unique background and border.
-    -   Example: Section 3 has a dashed outline and light-gray background for
-        emphasis.
+    - A section is styled with a unique background and border.
+    - Example: Section 3 has a dashed outline and light-gray background for
+      emphasis.
 
 5.  **Content Description**
 
-    -   A column has a title, a short description, and an associated icon for
-        clarity.
-    -   Example: "Pros" column title: "Advantages," description: "Key benefits
-        of this approach," icon: checkmark.
+    - A column has a title, a short description, and an associated icon for
+      clarity.
+    - Example: "Pros" column title: "Advantages," description: "Key benefits
+      of this approach," icon: checkmark.
 
 6.  **Empty Content Areas**
-    -   A section with only primary content, leaving the secondary column
-        empty.
-    -   Example: Section 4 has only a list of "Guidelines" in the primary
-        column.
+    - A section with only primary content, leaving the secondary column
+      empty.
+    - Example: Section 4 has only a list of "Guidelines" in the primary
+      column.
 
 ### Limits and Exclusions
 
 2.  **No Nested Accordions**
 
-    -   Sections cannot contain other sections as nested accordions.
+    - Sections cannot contain other sections as nested accordions.
 
 3.  **No External Data Fetching**
 
-    -   The widget does not handle data fetching or persistence; data must be
-        passed into the widget.
+    - The widget does not handle data fetching or persistence; data must be
+      passed into the widget.
 
 4.  **No Dynamic Animation**
 
-    -   Animations for expanding/collapsing are limited to basic Material 3
-        defaults without complex customization.
+    - Animations for expanding/collapsing are limited to basic Material 3
+      defaults without complex customization.
 
 5.  **No Custom Layouts**
-    -   The layout strictly adheres to two columns for primary and secondary
-        content or a single column when secondary is absent. Additional layouts
-        are not supported.
+    - The layout strictly adheres to two columns for primary and secondary
+      content or a single column when secondary is absent. Additional layouts
+      are not supported.
 
 ## Attached documents
 
@@ -314,80 +314,80 @@ integrity during operations like deletions.
 
 1.  **Simple Reference Management**
 
-    -   Attach a child document to an owner document by locator (e.g., a recipe
-        attaches a nutritional guide).
-    -   Detach a document and ensure the integrity of the remaining references.
+    - Attach a child document to an owner document by locator (e.g., a recipe
+      attaches a nutritional guide).
+    - Detach a document and ensure the integrity of the remaining references.
 
 2.  **Aggregation vs Composition**
 
-    -   Aggregate documents used across multiple owners (e.g., terms and
-        conditions referenced by various policies).
-    -   Compose documents specific to a single owner (e.g., a project’s task
-        list).
+    - Aggregate documents used across multiple owners (e.g., terms and
+      conditions referenced by various policies).
+    - Compose documents specific to a single owner (e.g., a project’s task
+      list).
 
 3.  **Complex Relationship Attributes**
 
-    -   Represent relationships with metadata (e.g., 200g butter in a recipe,
-        where "200g" is attached to the relationship).
-    -   Support different types of verbs for relationships (e.g., "contains,"
-        "related to").
+    - Represent relationships with metadata (e.g., 200g butter in a recipe,
+      where "200g" is attached to the relationship).
+    - Support different types of verbs for relationships (e.g., "contains,"
+      "related to").
 
 4.  **Rendering**
 
-    -   Render attached documents using the same format as the owner when
-        feasible.
-    -   Support bespoke rendering mechanisms for complex documents.
+    - Render attached documents using the same format as the owner when
+      feasible.
+    - Support bespoke rendering mechanisms for complex documents.
 
 5.  **Preview Management**
 
-    -   Provide simple previews (e.g., labels, short labels for buttons).
-    -   Offer rich previews (e.g., image or media previews).
-    -   Support asynchronous server-side generation of image previews in
-        various formats.
+    - Provide simple previews (e.g., labels, short labels for buttons).
+    - Offer rich previews (e.g., image or media previews).
+    - Support asynchronous server-side generation of image previews in
+      various formats.
 
 6.  **Efficiency**
 
-    -   Balance UX and performance by avoiding frequent re-rendering (e.g., not
-        updating previews for every character typed).
-    -   Ensure that the application remains performant even when handling
-        numerous attachments.
+    - Balance UX and performance by avoiding frequent re-rendering (e.g., not
+      updating previews for every character typed).
+    - Ensure that the application remains performant even when handling
+      numerous attachments.
 
 7.  **Deletion and Integrity**
 
-    -   Handle deletion of owner documents while ensuring reference integrity
-        for shared child documents.
-    -   Provide mechanisms to clean up unused references or orphaned child
-        documents.
+    - Handle deletion of owner documents while ensuring reference integrity
+      for shared child documents.
+    - Provide mechanisms to clean up unused references or orphaned child
+      documents.
 
 8.  **Extensibility**
-    -   Accommodate business-specific needs for previews (e.g., deciding
-        preview types based on document type or user role).
-    -   Scale the system for diverse document types and relationships.
+    - Accommodate business-specific needs for previews (e.g., deciding
+      preview types based on document type or user role).
+    - Scale the system for diverse document types and relationships.
 
 ### Edge Cases
 
--   Attaching a non-existent document should fail gracefully.
--   A document referenced by multiple owners should not be deleted unless
-    all references are removed.
--   Complex relationships where metadata changes (e.g., quantity in a
-    recipe) should not affect the child document’s core content.
--   Simultaneous updates to a document by multiple owners should not result
-    in inconsistent state.
--   Previews that fail to generate asynchronously (e.g., server issues)
-    should fall back to default states.
+- Attaching a non-existent document should fail gracefully.
+- A document referenced by multiple owners should not be deleted unless
+  all references are removed.
+- Complex relationships where metadata changes (e.g., quantity in a
+  recipe) should not affect the child document’s core content.
+- Simultaneous updates to a document by multiple owners should not result
+  in inconsistent state.
+- Previews that fail to generate asynchronously (e.g., server issues)
+  should fall back to default states.
 
 ### Limits and Non-Goals
 
--   **Browser-Based Prompts**: Representing attached content as
-    browser-based prompts is out of scope due to current technical
-    constraints.
--   **Rendering Overhead**: The system will not support real-time
-    re-rendering of attached documents on every user input.
--   **Preview Storage**: Long-term storage or management of generated
-    previews on the client side is not a focus; this should be
-    server-driven.
--   **Complex Query Engines**: Building a query engine for traversing
-    complex document relationships is not part of this scope.
+- **Browser-Based Prompts**: Representing attached content as
+  browser-based prompts is out of scope due to current technical
+  constraints.
+- **Rendering Overhead**: The system will not support real-time
+  re-rendering of attached documents on every user input.
+- **Preview Storage**: Long-term storage or management of generated
+  previews on the client side is not a focus; this should be
+  server-driven.
+- **Complex Query Engines**: Building a query engine for traversing
+  complex document relationships is not part of this scope.
 
 ## Content Filtering by Topic
 
@@ -415,9 +415,9 @@ The problem involves enabling functionality to:
 3.  **Combining Filters and Highlights**:\
     A URL with both parameters, e.g., `document.html?use-primary=pros,advantages&use-secondary=cons`, would:
 
-    -   Display only "pros", "advantages", and "cons".
-    -   Highlight "pros" and "advantages" with the primary color and "cons"
-        with the secondary color.
+    - Display only "pros", "advantages", and "cons".
+    - Highlight "pros" and "advantages" with the primary color and "cons"
+      with the secondary color.
 
 4.  **Default View**:\
     If no query parameters are provided, the full document is displayed without any additional highlighting.
@@ -430,14 +430,14 @@ The problem involves enabling functionality to:
 
 ### Edge Cases
 
--   Query parameters reference topics that do not exist in the document,
-    e.g., `use-primary=nonexistent`.
--   Overlapping tags between `use-primary` and `use-secondary`, e.g.,
-    `use-primary=pros` and `use-secondary=pros`.
--   Invalid or malformed query parameters, e.g., `use-primary=`,
-    `use-secondary==`.
--   No valid tags found after filtering; ensure a fallback mechanism to
-    handle empty display states.
+- Query parameters reference topics that do not exist in the document,
+  e.g., `use-primary=nonexistent`.
+- Overlapping tags between `use-primary` and `use-secondary`, e.g.,
+  `use-primary=pros` and `use-secondary=pros`.
+- Invalid or malformed query parameters, e.g., `use-primary=`,
+  `use-secondary==`.
+- No valid tags found after filtering; ensure a fallback mechanism to
+  handle empty display states.
 
 ### Limitations and Exclusions
 
@@ -455,16 +455,16 @@ The problem involves enabling functionality to:
 
 ### Examples
 
--   **Full URL Example**:
-    `document.html?use-primary=pros,advantages&use-secondary=cons`
+- **Full URL Example**:
+  `document.html?use-primary=pros,advantages&use-secondary=cons`
 
-    -   Displays only topics tagged "pros", "advantages", and "cons".
-    -   "Pros" and "advantages" appear with primary color styling, while "cons"
-        uses secondary color styling.
+  - Displays only topics tagged "pros", "advantages", and "cons".
+  - "Pros" and "advantages" appear with primary color styling, while "cons"
+    uses secondary color styling.
 
--   **Invalid Query**:
-    `document.html?use-primary=unknown`
-    -   Displays a fallback view showing all content or a "no results" message.
+- **Invalid Query**:
+  `document.html?use-primary=unknown`
+  - Displays a fallback view showing all content or a "no results" message.
 
 ## Stateful document
 
@@ -483,110 +483,173 @@ trigger background actions, such as modifying the state or saving progress.
 
 1.  **Basic Navigation**
 
-    -   A user reads a section of the story and chooses from predefined options
-        to proceed to the next section.
-    -   Each section includes formatted text and embedded images.
+    - A user reads a section of the story and chooses from predefined options
+      to proceed to the next section.
+    - Each section includes formatted text and embedded images.
 
 2.  **Conditional Transitions**
 
-    -   A transition is only available if the user has made specific prior
-        choices (e.g., collected an item or achieved a certain score).
-    -   Example: "You need a key to open this door" blocks the transition until
-        the user collects a "key" in the state.
+    - A transition is only available if the user has made specific prior
+      choices (e.g., collected an item or achieved a certain score).
+    - Example: "You need a key to open this door" blocks the transition until
+      the user collects a "key" in the state.
 
 3.  **State Modifications**
 
-    -   Increment or decrement counters as a result of decisions.
-    -   Reset counters based on specific story conditions.
-    -   Update the current node in the state after a transition.
+    - Increment or decrement counters as a result of decisions.
+    - Reset counters based on specific story conditions.
+    - Update the current node in the state after a transition.
 
 4.  **Background Actions**
 
-    -   Save the user's progress (e.g., current node and state).
-    -   Trigger external processes (e.g., network calls, animations) upon
-        reaching certain nodes.
+    - Save the user's progress (e.g., current node and state).
+    - Trigger external processes (e.g., network calls, animations) upon
+      reaching certain nodes.
 
 5.  **Enum-Based States**
 
-    -   Track user attributes like "alignment" (e.g., good, neutral, evil) or
-        "location" using enumerations.
-    -   Restrict transitions based on a specific enum value.
+    - Track user attributes like "alignment" (e.g., good, neutral, evil) or
+      "location" using enumerations.
+    - Restrict transitions based on a specific enum value.
 
 6.  **History Tracking**
 
-    -   Maintain a history of visited nodes and decisions for backtracking or
-        debugging.
+    - Maintain a history of visited nodes and decisions for backtracking or
+      debugging.
 
 7.  **Error Prevention**
-    -   Prevent invalid transitions or circular logic by ensuring the DAG
-        structure remains valid.
+    - Prevent invalid transitions or circular logic by ensuring the DAG
+      structure remains valid.
 
 ### Edge Cases
 
 1.  **Invalid Transitions**
 
-    -   A user attempts to select a transition that doesn't match the current
-        state.
+    - A user attempts to select a transition that doesn't match the current
+      state.
 
 2.  **Unreachable Nodes**
 
-    -   Nodes with no incoming edges should be flagged during development to
-        avoid dead ends.
+    - Nodes with no incoming edges should be flagged during development to
+      avoid dead ends.
 
 3.  **Complex Conditions**
 
-    -   Transition logic becomes overly complicated, making it difficult to
-        debug or predict behavior.
-    -   Example: Nested conditions like `(state.counter > 5 AND enum == "Good")
-        OR (state.counter < 3 AND enum == "Evil")`.
+        - Transition logic becomes overly complicated, making it difficult to
+          debug or predict behavior.
+        - Example: Nested conditions like `(state.counter > 5 AND enum == "Good")
+
+    OR (state.counter < 3 AND enum == "Evil")`.
 
 4.  **State Overwrites**
 
-    -   Concurrent background actions inadvertently overwrite state changes.
+    - Concurrent background actions inadvertently overwrite state changes.
 
 5.  **History Overload**
 
-    -   Excessive history tracking causes performance issues in large stories.
+    - Excessive history tracking causes performance issues in large stories.
 
 6.  **User Backtracking**
 
-    -   A user tries to revisit a previous node, and the system must decide how
-        state and history are affected.
+    - A user tries to revisit a previous node, and the system must decide how
+      state and history are affected.
 
 7.  **Large DAG Structure**
-    -   A complex story with hundreds of nodes causes UI lag or memory issues.
+    - A complex story with hundreds of nodes causes UI lag or memory issues.
 
 ### Limits and Exclusions
 
--   The solution should **not** allow circular dependencies in the DAG
-    structure.
--   Do not implement highly complex condition matching for transitions
-    (e.g., no deeply nested logical conditions).
--   The state should remain lightweight, focusing only on:
-    -   Integer counters (increment, decrement, reset).
-    -   Current node ID.
-    -   Enum values representing simple attributes.
--   Avoid implementing deep undo/redo functionality beyond maintaining a
-    straightforward visit history.
--   This solution is not intended to create or edit the DAG structure
-    dynamically within the app.
+- The solution should **not** allow circular dependencies in the DAG
+  structure.
+- Do not implement highly complex condition matching for transitions
+  (e.g., no deeply nested logical conditions).
+- The state should remain lightweight, focusing only on:
+  - Integer counters (increment, decrement, reset).
+  - Current node ID.
+  - Enum values representing simple attributes.
+- Avoid implementing deep undo/redo functionality beyond maintaining a
+  straightforward visit history.
+- This solution is not intended to create or edit the DAG structure
+  dynamically within the app.
 
 ### Example
 
 1.  **Story Node**:
 
-    -   Content: "You find yourself in a dark forest. There are two paths
-        ahead."
-    -   Transitions:
-        -   "Take the left path" → Requires `state.counter >= 1`.
-        -   "Take the right path" → Requires `enum.alignment == "Neutral"`.
+    - Content: "You find yourself in a dark forest. There are two paths
+      ahead."
+    - Transitions:
+      - "Take the left path" → Requires `state.counter >= 1`.
+      - "Take the right path" → Requires `enum.alignment == "Neutral"`.
 
 2.  **State Updates**:
 
-    -   Increment counter when a specific path is taken.
-    -   Change alignment enum if a choice aligns with specific moral
-        attributes.
+    - Increment counter when a specific path is taken.
+    - Change alignment enum if a choice aligns with specific moral
+      attributes.
 
 3.  **Background Action**:
-    -   Save `currentNode` and `state` to persistent storage after each
-        decision.
+    - Save `currentNode` and `state` to persistent storage after each
+      decision.
+
+## Page layout:
+
+The goal is to define a page layout in Dart structured as a series of rows. Each row contains a primary section and may optionally include a secondary section. A section is described using locators/identifiers and metadata that guide how the section should be rendered, previewed, and updated. The actual rendering logic per section type is handled by external renderers.
+
+```mermaid
+graph TB
+    Page["Page"]
+    Row1["Row 1"]
+    Row2["Row 2"]
+    Section1A["Primary Section\nLocators + Metadata"]
+    Section1B["Secondary Section\nLocators + Metadata"]
+    Section2A["Primary Section\nLocators + Metadata"]
+
+    Page --> Row1
+    Page --> Row2
+
+    Row1 --> Section1A
+    Row1 --> Section1B
+    Row2 --> Section2A
+
+    Section1A --> Locator1A["Main + Preview Locators"]
+    Section1A --> Metadata1A["Metadata: type, title, size, color, updateFreq"]
+
+    Section1B --> Locator1B["Main + Preview Locators"]
+    Section1B --> Metadata1B["Metadata: type, title, size, color, updateFreq"]
+
+    Section2A --> Locator2A["Main + Preview Locators"]
+    Section2A --> Metadata2A["Metadata: type, title, size, color, updateFreq"]
+
+```
+
+**Use Cases:**
+
+- A page with multiple rows, each with a primary text section and an optional preview image as a secondary section.
+- A video section in a row that loads a static thumbnail placeholder before the actual video is rendered.
+- A dynamic text feed that updates every minute, with a fixed-size gray box placeholder before content is fetched.
+- Rows displaying static content (e.g., images) updated hourly with a blurred preview before the image loads.
+- Rows where the secondary section is omitted entirely.
+
+**Edge Cases:**
+
+- A row where both primary and secondary sections have identical metadata.
+- A row with a malformed or missing section identifier.
+- A section with metadata specifying an unsupported type (e.g., "audio" when only "text", "image", and "video" are supported).
+- A placeholder with dimensions set to zero or negative values.
+- Sections that fail to fetch content and rely solely on placeholders indefinitely.
+
+**Limits and Out-of-Scope:**
+
+- Do not implement rendering logic for section types; assume it's handled by external libraries.
+- Do not handle network fetching or parsing of content JSON; only define the structure.
+- Do not implement history tracking or last-update retrieval for sections.
+- Do not include navigation logic or user interaction with the sections.
+- Do not support nested rows or complex layouts; each row is flat with up to two sections.
+
+**Examples of What Not to Do:**
+
+- Avoid embedding real content or implementing fetch logic inside this spec.
+- Do not reference UI framework-specific components (e.g., Flutter widgets).
+- Do not include business logic for how frequently a section should trigger updates.
+- Do not design rendering logic within this specification.
