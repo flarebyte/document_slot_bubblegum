@@ -29,4 +29,3 @@
 library document_slot_bubblegum;
 
 export 'src/document_slot_material.dart';
-export 'src/elegant_text.dart';
