@@ -22,6 +22,7 @@ class CopperframeDocumentSection {
 class CopperframeDocumentRow {
   CopperframeDocumentSection primary;
   CopperframeDocumentSection? secondary;
+  CopperframeDocumentSection? tertiary;
 }
 
 class CopperframeDocument {
