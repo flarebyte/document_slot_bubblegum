@@ -653,3 +653,55 @@ graph TB
 - Do not reference UI framework-specific components (e.g., Flutter widgets).
 - Do not include business logic for how frequently a section should trigger updates.
 - Do not design rendering logic within this specification.
+
+## Problem Context: Efficient Handling of Nested Section Visibility in a Document Model
+
+This specification defines the problem of managing the visibility state within a deeply nested document structure in Dart/Flutter. Each document is composed of rows, which contain sections, which in turn include segments. These entities form a tree-like structure with visibility states determined by both local and inherited logic.
+
+**Problem Statement**
+
+Design a data structure and access pattern for managing nested document visibility where each node's visible state depends on its own state and that of its ancestors. Avoid redundancy and ensure accurate, efficient visibility propagation across potentially large and deeply nested trees.
+
+**Use Cases**
+
+- **Basic Visibility Inheritance**
+   - A section is hidden, all its child segments must be considered hidden regardless of their own state.
+
+- **Partial Tree Rendering**
+   - Only visible sections and segments are rendered in the UI to optimize performance.
+
+- **Visibility Toggling**
+   - A user toggles visibility on a section; the change must reflect immediately and correctly in all affected child nodes.
+
+- **Visibility-Aware Filtering**
+   - Application filters out all hidden segments during a content search operation.
+
+- **Non-Linear Nesting**
+   - Deeply nested structures with 4–5 levels of children, requiring recursive evaluation of visibility without performance degradation.
+
+- **Selective Updates**
+   - A specific section’s visibility is changed without triggering unnecessary recomputation on unrelated branches.
+
+**Edge Cases**
+
+- A segment is visible but has a parent section that is not — it must still evaluate as not visible.
+- A section has no parent (i.e. is a root node); it should default to visible unless `selfVisible` is false.
+- Toggling visibility on an already-hidden section should not trigger downstream updates.
+- A child node has inconsistent or out-of-sync visibility if visibility is stored instead of derived.
+
+**Limitations**
+
+Do **not** address the following:
+
+- Rendering logic or Flutter widget implementation.
+- UI events or gesture handling.
+- State management libraries (e.g., Provider, Bloc).
+- Real-time synchronization across threads or devices.
+- Persisting visibility state beyond memory (e.g., storage or network).
+
+**Exclusions by Example**
+
+- Do not introduce a `set isVisible(bool)` method that stores a computed value.
+- Avoid adding fields for effective visibility state.
+- Exclude traversal logic that doesn't consider `isVisible`.
+- Do not expose internal references (like parent pointers) for direct manipulation.
