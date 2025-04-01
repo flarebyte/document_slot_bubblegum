@@ -665,22 +665,27 @@ Design a data structure and access pattern for managing nested document visibili
 **Use Cases**
 
 - **Basic Visibility Inheritance**
-   - A section is hidden, all its child segments must be considered hidden regardless of their own state.
+
+  - A section is hidden, all its child segments must be considered hidden regardless of their own state.
 
 - **Partial Tree Rendering**
-   - Only visible sections and segments are rendered in the UI to optimize performance.
+
+  - Only visible sections and segments are rendered in the UI to optimize performance.
 
 - **Visibility Toggling**
-   - A user toggles visibility on a section; the change must reflect immediately and correctly in all affected child nodes.
+
+  - A user toggles visibility on a section; the change must reflect immediately and correctly in all affected child nodes.
 
 - **Visibility-Aware Filtering**
-   - Application filters out all hidden segments during a content search operation.
+
+  - Application filters out all hidden segments during a content search operation.
 
 - **Non-Linear Nesting**
-   - Deeply nested structures with 4–5 levels of children, requiring recursive evaluation of visibility without performance degradation.
+
+  - Deeply nested structures with 4–5 levels of children, requiring recursive evaluation of visibility without performance degradation.
 
 - **Selective Updates**
-   - A specific section’s visibility is changed without triggering unnecessary recomputation on unrelated branches.
+  - A specific section’s visibility is changed without triggering unnecessary recomputation on unrelated branches.
 
 **Edge Cases**
 
