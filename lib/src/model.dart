@@ -20,9 +20,7 @@ class CopperframeDocumentSection {
 }
 
 class CopperframeDocumentRow {
-  CopperframeDocumentSection primary;
-  CopperframeDocumentSection? secondary;
-  CopperframeDocumentSection? tertiary;
+  List<CopperframeDocumentSection> sections;
 }
 
 class CopperframeDocument {
